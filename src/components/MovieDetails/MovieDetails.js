@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import {
@@ -14,9 +13,6 @@ import {
 import StyledContainer from 'components/Container/Container.styled';
 
 const MovieDetails = () => {
-  // const { movieId } = useParams();
-  // console.log(movieId);
-
   return (
     <StyledContainer>
       <StyledButton to="movies">
