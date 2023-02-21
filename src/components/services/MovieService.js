@@ -25,10 +25,13 @@ class MovieService {
     };
   };
 
-  getMovieByQuery = query => {
-    return this.fetchMovie(
-      `${BASE_URL}/search/movie?${API_KEY}&language=en-US&page=1&query=${query}&include_adult=false`
+  getMovieByQuery = async query => {
+    const res = await this.fetchMovie(
+      `/search/movie?${API_KEY}&language=en-US&page=1&query=${query}`
     );
+    const { results } = res;
+    const movies = results.map(({ id, title, name }) => ({ id, title, name }));
+    return movies;
   };
 
   getMovieCredits = async id => {
@@ -49,14 +52,12 @@ class MovieService {
     );
     const { results } = res;
     const props = results.map(
-      ({ id, content, author_details: { username, rating } }) => {
-        return {
-          id,
-          content,
-          username,
-          rating,
-        };
-      }
+      ({ id, content, author_details: { username, rating } }) => ({
+        id,
+        content,
+        username,
+        rating,
+      })
     );
     return props;
   };

@@ -1,8 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import MovieService from 'components/services/MovieService';
 import { BsArrowLeftShort } from 'react-icons/bs';
+
+import MovieService from 'components/services/MovieService';
 import {
   StyledButton,
   StyledCard,
@@ -20,6 +20,7 @@ export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState();
+  const location = useLocation();
 
   useEffect(() => {
     (async function fetchMovieCard() {
@@ -33,9 +34,7 @@ const MovieDetails = () => {
     })();
   }, [movieId]);
 
-  if (!movie) {
-    return;
-  }
+  if (!movie) return;
 
   const { title, poster_path, vote_average, genres, overview } = movie;
   const genresList = genres.map(({ name }) => name).join(', ');
@@ -43,7 +42,7 @@ const MovieDetails = () => {
 
   return (
     <StyledContainer style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-      <StyledButton to="/">
+      <StyledButton to="/" state={{ from: location }}>
         <BsArrowLeftShort style={{ width: '20px', height: '20px' }} />
         Go back
       </StyledButton>

@@ -17,8 +17,7 @@ const Reviews = () => {
       try {
         const api = new MovieService();
         const res = await api.getMovieReviews(movieId);
-        setReviews([...res]);
-        console.log(res);
+        setReviews(res);
       } catch (error) {
         console.log(error.message);
       }

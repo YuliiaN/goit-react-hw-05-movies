@@ -4,8 +4,6 @@ import Movies from 'pages/Movies/Movies';
 import MovieDetails from './MovieDetails/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-// import NotFound from 'pages/NotFound';
-
 import SharedLayout from './SharedLayout/SharedLayout';
 
 export const App = () => {
@@ -20,7 +18,7 @@ export const App = () => {
             <Route path="reviews" element={<Reviews />} />
           </Route>
         </Route>
-        {/* <Route path="/" element={<NotFound />} /> */}
+        <Route path="*" element={<Home />} />
       </Routes>
     </div>
   );
