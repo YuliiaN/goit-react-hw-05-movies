@@ -42,7 +42,7 @@ const MovieDetails = () => {
 
   return (
     <StyledContainer style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-      <StyledButton to="/" state={{ from: location }}>
+      <StyledButton to={location.state.from} state={{ from: location }}>
         <BsArrowLeftShort style={{ width: '20px', height: '20px' }} />
         Go back
       </StyledButton>
