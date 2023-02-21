@@ -39,10 +39,11 @@ const MovieDetails = () => {
   const { title, poster_path, vote_average, genres, overview } = movie;
   const genresList = genres.map(({ name }) => name).join(', ');
   const userScore = Math.round(vote_average * 10);
+  const path = location.state?.from ?? '/movies';
 
   return (
     <StyledContainer style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-      <StyledButton to={location.state.from} state={{ from: location }}>
+      <StyledButton to={path} state={{ from: location }}>
         <BsArrowLeftShort style={{ width: '20px', height: '20px' }} />
         Go back
       </StyledButton>
