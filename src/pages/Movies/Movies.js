@@ -1,8 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import MovieService from 'components/services/MovieService';
+import MovieService from 'services/MovieService';
 import { StyledForm, StyledInput, StyledButton } from './Movies.styled';
 import StyledContainer from 'components/Container/Container.styled';
 import MovieList from 'components/MovieList/MovieList';
@@ -34,17 +34,19 @@ const Movies = () => {
   }, [query]);
 
   return (
-    <StyledContainer>
-      <StyledForm onSubmit={onSubmit}>
-        <StyledInput name="query" />
-        <StyledButton type="submit">
-          <BsSearch
-            style={{ width: '20px', height: '20px', color: 'maroon' }}
-          />
-        </StyledButton>
-      </StyledForm>
-      {!!movies.length && <MovieList movies={movies} />}
-    </StyledContainer>
+    <Suspense fallback="null">
+      <StyledContainer>
+        <StyledForm onSubmit={onSubmit}>
+          <StyledInput name="query" />
+          <StyledButton type="submit">
+            <BsSearch
+              style={{ width: '20px', height: '20px', color: 'maroon' }}
+            />
+          </StyledButton>
+        </StyledForm>
+        {!!movies.length && <MovieList movies={movies} />}
+      </StyledContainer>
+    </Suspense>
   );
 };
 

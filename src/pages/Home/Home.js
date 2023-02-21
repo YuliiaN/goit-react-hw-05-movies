@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import MovieService from 'components/services/MovieService';
+import MovieService from 'services/MovieService';
 import StyledContainer from 'components/Container/Container.styled';
 import MovieList from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';

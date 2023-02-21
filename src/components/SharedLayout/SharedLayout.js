@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 import { StyledNav, StyledLink } from './SharedLayout.styled';
 import StyledContainer from 'components/Container/Container.styled';
 
@@ -8,21 +9,20 @@ const SharedLayout = () => {
       <header>
         <StyledNav>
           <StyledContainer>
-            <ul
-              className="nav-list"
-              style={{ display: 'flex', gap: '50px', listStyle: 'none' }}
-            >
-              <li className="nav-item">
+            <ul style={{ display: 'flex', gap: '50px', listStyle: 'none' }}>
+              <li>
                 <StyledLink to="/">Home</StyledLink>
               </li>
-              <li className="nav-item">
+              <li>
                 <StyledLink to="/movies">Movies</StyledLink>
               </li>
             </ul>
           </StyledContainer>
         </StyledNav>
       </header>
-      <Outlet />
+      <Suspense fallback="null">
+        <Outlet />
+      </Suspense>
     </>
   );
 };

@@ -6,8 +6,8 @@ import {
   StyledCastPicture,
   StyledCastText,
 } from './Cast.styled';
-import MovieService from 'components/services/MovieService';
-import { IMAGE_URL } from 'components/MovieDetails/MovieDetails';
+import MovieService from 'services/MovieService';
+import { IMAGE_URL } from 'pages/MovieDetails/MovieDetails';
 
 const Cast = () => {
   const { movieId } = useParams();

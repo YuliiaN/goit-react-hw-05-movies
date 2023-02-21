@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
-import MovieService from 'components/services/MovieService';
+import MovieService from 'services/MovieService';
 import {
   StyledReviewList,
   StyledReviewItem,

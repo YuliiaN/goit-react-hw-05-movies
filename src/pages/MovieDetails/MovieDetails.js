@@ -1,8 +1,8 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { BsArrowLeftShort } from 'react-icons/bs';
 
-import MovieService from 'components/services/MovieService';
+import MovieService from 'services/MovieService';
 import {
   StyledButton,
   StyledCard,
@@ -82,7 +82,9 @@ const MovieDetails = () => {
           </li>
         </ul>
       </StyledAdditional>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </StyledContainer>
   );
 };
