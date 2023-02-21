@@ -21,13 +21,11 @@ export const StyledButton = styled(Link)`
 export const StyledCard = styled.div`
   display: flex;
   gap: 20px;
-  align-items: center;
   margin-bottom: 30px;
 `;
 
 export const StyledPoster = styled.img`
   width: 300px;
-  height: 500px;
 `;
 
 export const StyledInfo = styled.div`
@@ -37,12 +35,12 @@ export const StyledInfo = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
 `;
 
 export const StyledSubTitle = styled.h3`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 `;
 

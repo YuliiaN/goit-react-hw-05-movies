@@ -10,7 +10,8 @@ const Home = () => {
     (async function fetchTrendingMovies() {
       const api = new MovieService();
       const res = await api.getTrendingMovies();
-      setMovies(res);
+      const { results } = res;
+      setMovies(results);
     })();
   }, []);
 
@@ -36,7 +37,7 @@ const Home = () => {
           {movies.map(({ id, title, name }) => {
             return (
               <li key={id} id={id}>
-                <Link to="/" style={{ color: '#252423' }}>
+                <Link to={`movies/${id}`} style={{ color: '#252423' }}>
                   {title ? title : name}
                 </Link>
               </li>

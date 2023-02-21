@@ -1,4 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import MovieService from 'components/services/MovieService';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import {
   StyledButton,
@@ -12,22 +15,50 @@ import {
 } from './MovieDetails.styled';
 import StyledContainer from 'components/Container/Container.styled';
 
+export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+
 const MovieDetails = () => {
+  const { movieId } = useParams();
+  const [movie, setMovie] = useState();
+
+  useEffect(() => {
+    (async function fetchMovieCard() {
+      try {
+        const api = new MovieService();
+        const res = await api.getMovieDetails(movieId);
+        setMovie(res);
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
+  }, [movieId]);
+
+  if (!movie) {
+    return;
+  }
+
+  const { title, poster_path, vote_average, genres, overview } = movie;
+  const genresList = genres.map(({ name }) => name).join(', ');
+  const userScore = Math.round(vote_average * 10);
+
   return (
-    <StyledContainer>
-      <StyledButton to="movies">
+    <StyledContainer style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+      <StyledButton to="/">
         <BsArrowLeftShort style={{ width: '20px', height: '20px' }} />
         Go back
       </StyledButton>
       <StyledCard>
-        <StyledPoster src="poster.jpg" alt=""></StyledPoster>
+        <StyledPoster
+          src={`${IMAGE_URL}${poster_path}`}
+          alt={title}
+        ></StyledPoster>
         <StyledInfo>
-          <StyledTitle>Movie name</StyledTitle>
-          <StyledText>Score</StyledText>
+          <StyledTitle>{title}</StyledTitle>
+          <StyledText>User score: {userScore}%</StyledText>
           <StyledSubTitle>Overview</StyledSubTitle>
-          <StyledText>Description</StyledText>
+          <StyledText>{overview}</StyledText>
           <StyledSubTitle>Genres</StyledSubTitle>
-          <StyledText>Genres list</StyledText>
+          <StyledText>{genresList}</StyledText>
         </StyledInfo>
       </StyledCard>
       <StyledAdditional>
@@ -40,17 +71,18 @@ const MovieDetails = () => {
           }}
         >
           <li>
-            <Link to="/" style={{ color: 'blue' }}>
+            <Link to="cast" style={{ color: 'blue' }}>
               Cast
             </Link>
           </li>
           <li>
-            <Link to="/" style={{ color: 'blue' }}>
+            <Link to="reviews" style={{ color: 'blue' }}>
               Reviews
             </Link>
           </li>
         </ul>
       </StyledAdditional>
+      <Outlet />
     </StyledContainer>
   );
 };

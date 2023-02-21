@@ -7,16 +7,13 @@ const SharedLayout = () => {
     <>
       <header>
         <StyledNav>
-          {' '}
           <StyledContainer>
             <ul
               className="nav-list"
               style={{ display: 'flex', gap: '50px', listStyle: 'none' }}
             >
               <li className="nav-item">
-                <StyledLink to="/" className="active">
-                  Home
-                </StyledLink>
+                <StyledLink to="/">Home</StyledLink>
               </li>
               <li className="nav-item">
                 <StyledLink to="/movies">Movies</StyledLink>

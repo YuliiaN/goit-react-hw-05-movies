@@ -4,7 +4,7 @@ import Movies from 'pages/Movies/Movies';
 import MovieDetails from './MovieDetails/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-import NotFound from 'pages/NotFound';
+// import NotFound from 'pages/NotFound';
 
 import SharedLayout from './SharedLayout/SharedLayout';
 
@@ -14,17 +14,14 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="movies" element={<Movies />}>
-            <Route path=":movieId" element={<MovieDetails />}>
-              <Route path="cast" element={<Cast />} />
-              <Route path="reviews" element={<Reviews />} />
-            </Route>
-            <Route />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
           </Route>
         </Route>
-        <Route path="/" element={<NotFound />} />
+        {/* <Route path="/" element={<NotFound />} /> */}
       </Routes>
-      <MovieDetails />
     </div>
   );
 };

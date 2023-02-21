@@ -5,16 +5,24 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 
 class MovieService {
   fetchMovie = async url => {
-    const res = await axios.get(`${url}`);
-    return res.data.results;
+    const res = await axios.get(`${BASE_URL}${url}`);
+    return res.data;
   };
 
   getTrendingMovies = () => {
-    return this.fetchMovie(`${BASE_URL}/trending/all/day?${API_KEY}`);
+    return this.fetchMovie(`/trending/all/day?${API_KEY}`);
   };
 
-  getMovieDetails = id => {
-    return this.fetchMovie(`${BASE_URL}/movie/${id}?${API_KEY}&language=en-US`);
+  getMovieDetails = async id => {
+    const res = await this.fetchMovie(`/movie/${id}?${API_KEY}&language=en-US`);
+    const { poster_path, title, vote_average, genres, overview } = res;
+    return {
+      poster_path,
+      title,
+      vote_average,
+      genres,
+      overview,
+    };
   };
 
   getMovieByQuery = query => {
@@ -23,14 +31,34 @@ class MovieService {
     );
   };
 
-  getMovieCredits = id => {
-    return this.fetchMovie(
-      `${BASE_URL}/movie/${id}/credits?${API_KEY}&language=en-US`
+  getMovieCredits = async id => {
+    const res = await this.fetchMovie(
+      `/movie/${id}/credits?${API_KEY}&language=en-US`
     );
+    const { cast } = res;
+    const arr = [];
+    for (let i = 0; i < 12; i += 1) {
+      arr.push(cast[i]);
+    }
+    return arr;
   };
 
-  getMovieReviews = id => {
-    return this.fetchMovie(`${BASE_URL}/review/${id}?${API_KEY}`);
+  getMovieReviews = async id => {
+    const res = await this.fetchMovie(
+      `/movie/${id}/reviews?${API_KEY}&language=en-US`
+    );
+    const { results } = res;
+    const props = results.map(
+      ({ id, content, author_details: { username, rating } }) => {
+        return {
+          id,
+          content,
+          username,
+          rating,
+        };
+      }
+    );
+    return props;
   };
 }
 
