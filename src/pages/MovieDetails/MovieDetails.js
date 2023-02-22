@@ -2,20 +2,11 @@ import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState, Suspense } from 'react';
 import { BsArrowLeftShort } from 'react-icons/bs';
 
-import MovieService from 'services/MovieService';
-import {
-  StyledButton,
-  StyledCard,
-  StyledPoster,
-  StyledInfo,
-  StyledTitle,
-  StyledSubTitle,
-  StyledText,
-  StyledAdditional,
-} from './MovieDetails.styled';
+import { StyledButton, StyledAdditional } from './MovieDetails.styled';
+import { StyledText } from 'components/MovieCard/MovieCard.styled';
+import MovieCard from 'components/MovieCard/MovieCard';
 import StyledContainer from 'components/Container/Container.styled';
-
-export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+import { api } from 'pages/Home/Home';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -25,7 +16,6 @@ const MovieDetails = () => {
   useEffect(() => {
     (async function fetchMovieCard() {
       try {
-        const api = new MovieService();
         const res = await api.getMovieDetails(movieId);
         setMovie(res);
       } catch (error) {
@@ -34,11 +24,6 @@ const MovieDetails = () => {
     })();
   }, [movieId]);
 
-  if (!movie) return;
-
-  const { title, poster_path, vote_average, genres, overview } = movie;
-  const genresList = genres.map(({ name }) => name).join(', ');
-  const userScore = Math.round(vote_average * 10);
   const path = location.state?.from ?? '/movies';
 
   return (
@@ -47,20 +32,7 @@ const MovieDetails = () => {
         <BsArrowLeftShort style={{ width: '20px', height: '20px' }} />
         Go back
       </StyledButton>
-      <StyledCard>
-        <StyledPoster
-          src={`${IMAGE_URL}${poster_path}`}
-          alt={title}
-        ></StyledPoster>
-        <StyledInfo>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledText>User score: {userScore}%</StyledText>
-          <StyledSubTitle>Overview</StyledSubTitle>
-          <StyledText>{overview}</StyledText>
-          <StyledSubTitle>Genres</StyledSubTitle>
-          <StyledText>{genresList}</StyledText>
-        </StyledInfo>
-      </StyledCard>
+      {movie && <MovieCard movie={movie} />}
       <StyledAdditional>
         <StyledText>Additional information</StyledText>
         <ul
@@ -71,12 +43,12 @@ const MovieDetails = () => {
           }}
         >
           <li>
-            <Link to="cast" style={{ color: 'blue' }}>
+            <Link to="cast" state={{ from: path }} style={{ color: 'blue' }}>
               Cast
             </Link>
           </li>
           <li>
-            <Link to="reviews" style={{ color: 'blue' }}>
+            <Link to="reviews" state={{ from: path }} style={{ color: 'blue' }}>
               Reviews
             </Link>
           </li>

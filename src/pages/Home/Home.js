@@ -4,6 +4,8 @@ import StyledContainer from 'components/Container/Container.styled';
 import MovieList from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';
 
+export const api = new MovieService();
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,6 @@ const Home = () => {
     (async function fetchTrendingMovies() {
       try {
         setLoading(true);
-        const api = new MovieService();
         const res = await api.getTrendingMovies();
         const { results } = res;
         setMovies(results);
@@ -23,10 +24,6 @@ const Home = () => {
       }
     })();
   }, []);
-
-  if (!movies) {
-    return;
-  }
 
   return (
     <>
@@ -41,7 +38,7 @@ const Home = () => {
           >
             Trending today
           </h1>
-          <MovieList movies={movies} />
+          {!!movies.length && <MovieList movies={movies} />}
         </StyledContainer>
       </section>
       {loading && <Loader />}

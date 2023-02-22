@@ -2,10 +2,10 @@ import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect, Suspense } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
-import MovieService from 'services/MovieService';
 import { StyledForm, StyledInput, StyledButton } from './Movies.styled';
 import StyledContainer from 'components/Container/Container.styled';
 import MovieList from 'components/MovieList/MovieList';
+import { api } from 'pages/Home/Home';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -24,7 +24,6 @@ const Movies = () => {
 
     (async function fetchMoviesByQuery() {
       try {
-        const api = new MovieService();
         const res = await api.getMovieByQuery(query);
         setMovies(res);
       } catch (error) {

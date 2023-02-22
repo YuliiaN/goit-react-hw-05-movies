@@ -6,8 +6,8 @@ import {
   StyledCastPicture,
   StyledCastText,
 } from './Cast.styled';
-import MovieService from 'services/MovieService';
-import { IMAGE_URL } from 'pages/MovieDetails/MovieDetails';
+import { api } from 'pages/Home/Home';
+import { IMAGE_URL } from 'components/MovieCard/MovieCard';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -16,7 +16,6 @@ const Cast = () => {
   useEffect(() => {
     (async function fetchMovieCast() {
       try {
-        const api = new MovieService();
         const res = await api.getMovieCredits(movieId);
         setCast(res);
       } catch (error) {
@@ -25,17 +24,18 @@ const Cast = () => {
     })();
   }, [movieId]);
 
-  if (!cast) return;
-
   return (
     <StyledCastList>
-      {cast.map(({ id, name, character, profile_path }) => (
-        <StyledCastItem key={id}>
-          <StyledCastPicture src={`${IMAGE_URL}${profile_path}`} />
-          <StyledCastText style={{ fontWeight: '600' }}>{name}</StyledCastText>
-          <StyledCastText>Character: {character}</StyledCastText>
-        </StyledCastItem>
-      ))}
+      {cast &&
+        cast.map(({ id, name, character, profile_path }) => (
+          <StyledCastItem key={id}>
+            <StyledCastPicture src={`${IMAGE_URL}${profile_path}`} />
+            <StyledCastText style={{ fontWeight: '600' }}>
+              {name}
+            </StyledCastText>
+            <StyledCastText>Character: {character}</StyledCastText>
+          </StyledCastItem>
+        ))}
     </StyledCastList>
   );
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
-import MovieService from 'services/MovieService';
+import { api } from 'pages/Home/Home';
 import {
   StyledReviewList,
   StyledReviewItem,
@@ -15,7 +15,6 @@ const Reviews = () => {
   useEffect(() => {
     (async function fetchReviews() {
       try {
-        const api = new MovieService();
         const res = await api.getMovieReviews(movieId);
         setReviews(res);
       } catch (error) {
