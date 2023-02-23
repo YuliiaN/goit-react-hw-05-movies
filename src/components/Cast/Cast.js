@@ -24,12 +24,17 @@ const Cast = () => {
     })();
   }, [movieId]);
 
+  const notFoundImage =
+    'https://i.pinimg.com/564x/3a/67/19/3a67194f5897030237d83289372cf684.jpg';
+  const isImageAvailable = image =>
+    image ? `${IMAGE_URL}${image}` : notFoundImage;
+
   return (
     <StyledCastList>
       {cast &&
         cast.map(({ id, name, character, profile_path }) => (
           <StyledCastItem key={id}>
-            <StyledCastPicture src={`${IMAGE_URL}${profile_path}`} />
+            <StyledCastPicture src={isImageAvailable(profile_path)} />
             <StyledCastText style={{ fontWeight: '600' }}>
               {name}
             </StyledCastText>
