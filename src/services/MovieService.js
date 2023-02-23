@@ -39,11 +39,7 @@ class MovieService {
       `/movie/${id}/credits?${API_KEY}&language=en-US`
     );
     const { cast } = res;
-    const arr = [];
-    for (let i = 0; i < 12; i += 1) {
-      arr.push(cast[i]);
-    }
-    return arr;
+    return cast.slice(0, 12);
   };
 
   getMovieReviews = async id => {

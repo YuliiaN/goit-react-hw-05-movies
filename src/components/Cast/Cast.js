@@ -22,6 +22,7 @@ const Cast = () => {
     (async function fetchMovieCast() {
       try {
         const res = await api.getMovieCredits(movieId);
+        console.log(res);
         setCast(res);
       } catch (error) {
         console.log(error.message);
@@ -30,21 +31,19 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
-      {cast.length && (
-        <StyledCastList>
-          {cast.map(({ id, name, character, profile_path }) => (
-            <StyledCastItem key={id}>
-              <StyledCastPicture src={isImageAvailable(profile_path)} />
-              <StyledCastText style={{ fontWeight: '600' }}>
-                {name}
-              </StyledCastText>
-              <StyledCastText>Character: {character}</StyledCastText>
-            </StyledCastItem>
-          ))}
-        </StyledCastList>
-      )}
-    </>
+    cast.length && (
+      <StyledCastList>
+        {cast.map(({ name, character, profile_path }) => (
+          <StyledCastItem key={name}>
+            <StyledCastPicture src={isImageAvailable(profile_path)} />
+            <StyledCastText style={{ fontWeight: '600' }}>
+              {name}
+            </StyledCastText>
+            <StyledCastText>Character: {character}</StyledCastText>
+          </StyledCastItem>
+        ))}
+      </StyledCastList>
+    )
   );
 };
 
