@@ -26,9 +26,10 @@ const Reviews = () => {
   const notFound = <p>We didn't find any reviews for this movie</p>;
 
   return (
-    <StyledReviewList>
-      {reviews.length
-        ? reviews.map(({ id, username, rating, content }) => (
+    <>
+      {reviews.length ? (
+        <StyledReviewList>
+          {reviews.map(({ id, username, rating, content }) => (
             <StyledReviewItem key={id}>
               <p style={{ display: 'flex', gap: '10px' }}>
                 <StyledSpan>Author:</StyledSpan>
@@ -42,9 +43,12 @@ const Reviews = () => {
               </p>
               <p>{content}</p>
             </StyledReviewItem>
-          ))
-        : notFound}
-    </StyledReviewList>
+          ))}
+        </StyledReviewList>
+      ) : (
+        notFound
+      )}
+    </>
   );
 };
 
