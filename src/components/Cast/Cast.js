@@ -29,18 +29,17 @@ const Cast = () => {
   const isImageAvailable = image =>
     image ? `${IMAGE_URL}${image}` : notFoundImage;
 
+  if (!cast) return;
+
   return (
     <StyledCastList>
-      {cast &&
-        cast.map(({ id, name, character, profile_path }) => (
-          <StyledCastItem key={id}>
-            <StyledCastPicture src={isImageAvailable(profile_path)} />
-            <StyledCastText style={{ fontWeight: '600' }}>
-              {name}
-            </StyledCastText>
-            <StyledCastText>Character: {character}</StyledCastText>
-          </StyledCastItem>
-        ))}
+      {cast.map(({ id, name, character, profile_path }) => (
+        <StyledCastItem key={id}>
+          <StyledCastPicture src={isImageAvailable(profile_path)} />
+          <StyledCastText style={{ fontWeight: '600' }}>{name}</StyledCastText>
+          <StyledCastText>Character: {character}</StyledCastText>
+        </StyledCastItem>
+      ))}
     </StyledCastList>
   );
 };
