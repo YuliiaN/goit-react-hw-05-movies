@@ -31,7 +31,7 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    cast.length && (
+    !!cast.length && (
       <StyledCastList>
         {cast.map(({ name, character, profile_path }) => (
           <StyledCastItem key={name}>
